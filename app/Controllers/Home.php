@@ -7,11 +7,8 @@ class Home extends BaseController
     public function index()
     {
         $data = [
-            'title' => 'Home | Sistem Pakar DBD'
+            'title' => 'Landing Page | Pakar Jantung'
         ];
-
-        echo view('templates/header', $data);
-        echo view('index');
-        echo view('templates/footer');
+        echo view('landpage/index');
     }
 }
