@@ -118,7 +118,7 @@
                                 <ul>1. Kebiasaan merokok.</ul>
                                 <ul>2. Kadar kolesterol yang tinggi.</ul>
                                 <ul>3. Pola hidup tidak terjaga.</ul>
-                                <ul>4. Hipertensi atau tekenan darah tinggi meningkat.</ul>
+                                <ul>4. Hipertensi atau tekanan darah tinggi meningkat.</ul>
                                 <ul>5. Kelebihan berat badan.</ul>
                                 <ul>6. Adanya penyakit diabetes.</ul>
                                 <ul>7. Faktor usia dan jenis kelamin.</ul>
@@ -131,7 +131,7 @@
                         <h5 class="text-dark font-weight-bold text-left">
                             <span> Cek apakah anda menderita penyakit jantung</span>
                             <span style="float : right">
-                                <button class="bg-gradient-info"><a href="/user/survey" class="text-light text-decoration-none">di sini</a>
+                                <button class="btn btn-info bg-gradient-info"><a href="/user/survey" class="text-light text-decoration-none">di sini</a>
                                 </button>
                             </span>
                         </h5>
@@ -140,8 +140,11 @@
                     <br>
                     <div class="container">
                         <div class="row">
-                            <div class="col-4">
-                                <h3 class="bg-light text-info"> Heartnalyze</h3>
+                            <div>
+                                <img src="/img/logo heartnalyze.svg" style="width: 65px;">
+                            </div>
+                            <div class="col-4 mt-2">
+                                <h3 class="text-info"> Heartnalyze</h3>
                             </div>
                         </div>
                     </div> <br>
@@ -150,7 +153,7 @@
                             <div class="col">
                                 <p>Heartnalyze merupakan sebuah sistem aplikasi berbasis website dalam bidang
                                     kesehatan terutama jantung. Sistem ini memiliki fungsi untuk mendiagnosis penyakit
-                                    jantung. Cek kesahatan jantung anda sekarang. Hindari resiko sejak dini untuk
+                                    jantung. Cek kesehatan jantung anda sekarang. Hindari resiko sejak dini untuk
                                     meminimalisir kemungkinan terburuk yang akan terjadi!!
                                 </p><br>
                                 <h5 class="font-weight-bold text-dark">Sehat dari sekarang dengan Asisten Kesehatan bagi
