@@ -2,18 +2,20 @@
 
 namespace App\Controllers;
 use App\Models\Profile;
+use App\Models\AuthGroupsUsers;
+use App\Controllers\BaseController;
 
 class User extends BaseController
 {
     public function index()
     {
         $auth = $this->authService();
-        $dataUser = $this->auth->user()->username;
+        $dataUser = $this->auth->user();
         $dataGejala = $this->gejala();
         $dataHistory = $this->historyModel->findColumn('nama');
         $i=0;
         foreach ($dataHistory as $hs){
-            if($hs == $dataUser){
+            if($hs == $dataUser->username){
                 $i++;
             }
         }
@@ -21,7 +23,7 @@ class User extends BaseController
             'title'=>'User Dashboard',
             'gejala' => $dataGejala, 
             'history' => $i,
-            'user' => $dataUser
+            'user' => $dataUser->username
         ];
 
         echo view('templates/header', $data);
@@ -38,34 +40,22 @@ class User extends BaseController
     {
         $auth = $this->authService();
         $dataUser = $this->auth->user();
+        $dataProfile = $this->getDataProfile('username', $dataUser->username);
 
-        // Get data profil user
-        $profileModel = $this->profileModel;
-        $usernameTable = $this->profileModel->findColumn('username');
-        foreach ($usernameTable as $un_Table) {            
-            if ($un_Table = $dataUser->username) {
-                foreach ($profileModel->findAll() as $findUser) {
-                    if ($findUser['username'] == $dataUser->username) {
-                        $dataProfile = $findUser;
-                    }
-                }
-            }
-        }
-
-        if (isset($dataProfile)) {
+        if (!empty($dataProfile)) {
             $data=[
                 'title'=>'Profile',
-                'id' => $dataProfile['id'],
-                'user' => $dataProfile['username'],
-                'email' => $dataProfile['email'],
-                'nama' => $dataProfile['nama'],
-                'tempat_lahir' => $dataProfile['tempat_lahir'],
-                'tanggal_lahir' => $dataProfile['tanggal_lahir'],
-                'gender' => $dataProfile['gender'],
-                'alamat' => $dataProfile['alamat'],
+                'id' => $dataProfile[0]['id'],
+                'user' => $dataProfile[0]['username'],
+                'email' => $dataProfile[0]['email'],
+                'nama' => $dataProfile[0]['nama'],
+                'tempat_lahir' => $dataProfile[0]['tempat_lahir'],
+                'tanggal_lahir' => $dataProfile[0]['tanggal_lahir'],
+                'gender' => $dataProfile[0]['gender'],
+                'alamat' => $dataProfile[0]['alamat'],
             ]; 
         }        
-        elseif (!isset($dataProfile)) {
+        elseif (empty($dataProfile)) {
             $msg = 'null';
             $data=[
                 'title'=>'Profile',
@@ -92,35 +82,24 @@ class User extends BaseController
     public function survey()
     {
         $auth = $this->authService();
-        $dataUser = $this->auth->user()->username;
+        $dataUser = $this->auth->user();
         $dataGejala = $this->gejala();
+        $dataProfile = $this->getDataProfile('username', $dataUser->username);
 
-        // Get data profil user
-        $profileModel = $this->profileModel;
-        $usernameTable = $this->profileModel->findColumn('username');
-        foreach ($usernameTable as $un_Table) {            
-            if ($un_Table = $dataUser) {
-                foreach ($profileModel->findAll() as $findUser) {
-                    if ($findUser['username'] == $dataUser) {
-                        $dataProfile = $findUser;
-                    }
-                }
-            }
-        }
         $data=[
             'title'=>'Cek Kesehatan',
             'gejala' => $dataGejala,
-            'user' => $dataUser
+            'user' => $dataUser->username
         ];
-        if (isset($dataProfile)) {
+        if (!empty($dataProfile)) {
             echo view('templates/header', $data);
             echo view('templates/sidebar-user');
             echo view('templates/topbar');
             echo view('user/survey');
             echo view('templates/footer');
         }
-        if (!isset($dataProfile)){
-            session()->setFlashdata('msg','Silahkan lengkapi data profile terlebih dahulu');
+        if (empty($dataProfile)){
+            session()->setFlashdata('msg','Silahkan lengkapi data profil terlebih dahulu');
             return redirect('user/profile');
         }
     }
@@ -146,48 +125,42 @@ class User extends BaseController
 
     public function save(){
         $cek = $this->request->getVar();
-        $dataGejala = $this->gejalaModel->findAll(); 
+        $input1 = $cek['gejala1'];
+        $input2 = $cek['gejala2'];
+        $input3 = $cek['gejala3'];
+        $input4 = $cek['gejala4'];
         $keterangan='';
         $gejalaUser='';
         $hasil='';
-        foreach ($dataGejala as $gj) {
-            if($cek['gejala1'] == $gj['gejala1']){
-                if($cek['gejala2'] == $gj['gejala2']){
-                    if($cek['gejala3'] == $gj['gejala3']){
-                        if($cek['gejala4'] == $gj['gejala4']){
-                             $hasil = $gj['penyakit'];
-                             $keterangan = $gj['keterangan'];
-                             $gejalaUser = ($cek['gejala1']. ", " . $cek['gejala2']. ", " . $cek['gejala3']. ", " . $cek['gejala4']);
-                        }            
-                        elseif ($cek['gejala4']=='null') {
-                            $hasil = $gj['penyakit'];
-                            $keterangan = $gj['keterangan'];
-                            $gejalaUser = ($cek['gejala1']. ", " . $cek['gejala2']. ", " . $cek['gejala3']);
-                        }
-                    }        
-                    elseif ($cek['gejala3']=='null') {
-                        $hasil = $gj['penyakit'];
-                        $keterangan = $gj['keterangan'];
-                        $gejalaUser = ($cek['gejala1']. ", " . $cek['gejala2']. ", " . $cek['gejala4']);
-                    }
-                }                    
-                elseif ($cek['gejala2']=='null') {
-                    $hasil = $gj['penyakit'];
-                    $keterangan = $gj['keterangan'];
-                    $gejalaUser = ($cek['gejala1']. ", " . $cek['gejala3'] . ", " . $cek['gejala4']);
-                }
+
+        if($input1 && $input2 && $input3 && $input4){
+            $diagnosa = $this->gejalaModel->where([
+                'gejala1' => $input1,
+                'gejala2' => $input2,
+                'gejala3' => $input3,
+                'gejala4' => $input4,
+            ],$input1)
+            ->findAll();
+    
+            if (!empty($diagnosa)) {
+                $hasil = $diagnosa[0]['penyakit'];
+                $keterangan = $diagnosa[0]['keterangan'];
+                $gejalaUser = ($input1. ", " . $input2. ", " . $input3 . ", " . $input4);            
             }
-            elseif ($cek['gejala1'] =='null') {
-                $hasil = $gj['penyakit'];
-                $keterangan = $gj['keterangan'];
-                $gejalaUser = ($cek['gejala2']. ", " . $cek['gejala3'] . ", " . $cek['gejala4']);
-            }
-            elseif ($hasil=='') {
+    
+            if(empty($diagnosa)){
                 $hasil = 'Tidak Teridentifikasi';
-                $keterangan = 'Anda tidak terindikasi penyakit jantung atau tidak ada penyakit yang sesuai dalam database kami. Namun, bila sakit berlanjut, harap segera hubungi dokter.';
-                $gejalaUser = ($cek['gejala1']. ", " . $cek['gejala2']. ", " . $cek['gejala3'] . ", " . $cek['gejala4']);
+                $keterangan = 'Tidak ada penyakit yang sesuai dalam database kami. Namun, bila sakit berlanjut, harap segera hubungi dokter.';
+                $gejalaUser = ($input1. ", " . $input2. ", " . $input3 . ", " . $input4);
             }
         }
+
+        elseif ($input1 || $input2 || $input3 || $input4) {
+            $hasil = 'Tidak Terindikasi';
+            $keterangan = 'Anda tidak terindikasi penyakit jantung';
+            $gejalaUser = ($input1. " " . $input2. " " . $input3 . " " . $input4);            
+        }
+        
         $this->historyModel->save([
             'nama' =>$this->request->getVar('namaUser'),
             'gejala' => $gejalaUser,
@@ -201,21 +174,10 @@ class User extends BaseController
     public function edit(){
         $cek = $this->request->getVar();
         $username = $this->request->getVar('username');
-        
-        // Get data profil user
-        $profileModel = $this->profileModel;
-        $usernameTable = $this->profileModel->findColumn('username');
-        foreach ($usernameTable as $un_Table) {            
-            if ($un_Table = $username) {
-                foreach ($profileModel->findAll() as $findUser) {
-                    if ($findUser['username'] == $username) {
-                        $dataProfile = $findUser;
-                    }
-                }
-            }
-        }
-        if (isset($dataProfile)) {
-            $id = $dataProfile['id'];
+        $dataProfile = $this->getDataProfile('username', $username);
+
+        if (!empty($dataProfile)) {
+            $id = $dataProfile[0]['id'];
             $this->profileModel->update($id, [
                 'username' =>$this->request->getVar('username'),
                 'nama' =>$this->request->getVar('nama'),
@@ -226,7 +188,7 @@ class User extends BaseController
                 'alamat' =>$this->request->getVar('alamat'),
             ]);
         }  
-        elseif (!isset($dataProfile)) {
+        elseif (empty($dataProfile)) {
             $this->profileModel->save([
                 'username' =>$this->request->getVar('username'),
                 'nama' =>$this->request->getVar('nama'),
@@ -257,23 +219,12 @@ class User extends BaseController
         $id =  $_POST['id'];
         $auth = $this->authService();
         $dataUser = $this->auth->user();
+        $dataProfile = $this->getDataProfile('username', $dataUser->username);
 
-        // Get data profil user
-        $profileModel = $this->profileModel;
-        $usernameTable = $this->profileModel->findColumn('username');
-        foreach ($usernameTable as $un_Table) {            
-            if ($un_Table = $dataUser->username) {
-                foreach ($profileModel->findAll() as $findUser) {
-                    if ($findUser['username'] == $dataUser->username) {
-                        $dataProfile = $findUser;
-                    }
-                }
-            }
+        if (!empty($dataProfile)) {
+            echo json_encode($dataProfile[0]);
         }
-        if (isset($dataProfile)) {
-            echo json_encode($dataProfile);
-        }
-        if (!isset($dataProfile)) {
+        if (empty($dataProfile)) {
             $data = [
                 'id' => $dataUser->id,
                 'username' => $dataUser->username,

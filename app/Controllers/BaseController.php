@@ -97,4 +97,8 @@ class BaseController extends Controller
 	{
 		$this->auth = service('authentication');
 	}
+
+	public function getDataProfile($kolom,$input){
+		return $this->profileModel->where($kolom,$input)->findAll();
+	}
 }

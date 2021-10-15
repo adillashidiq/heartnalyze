@@ -16,7 +16,7 @@
                                 <div class="form-group">
                                     <label for="gejala1">Gejala 1</label>
                                     <select class="form-control" name="gejala1" id="gejala1">
-                                    <option value="null">Tidak Ada</option>
+                                    <option value="">Tidak Ada</option>
                                     <?php 
                                     $i=0;
                                     foreach ($gejala['gejala'] as $gj): 
@@ -29,7 +29,7 @@
                                 <div class="form-group">
                                     <label for="gejala2">Gejala 2</label>
                                     <select class="form-control" name="gejala2" id="gejala2">
-                                    <option value="null">Tidak Ada</option>
+                                    <option value="">Tidak Ada</option>
                                     <?php 
                                     $i=0;
                                     foreach ($gejala['gejala'] as $gj): 
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label for="gejala3">Gejala 3</label>
                                     <select class="form-control" name="gejala3" id="gejala3">
-                                    <option value="null">Tidak Ada</option>
+                                    <option value="">Tidak Ada</option>
                                     <?php 
                                     $i=0;
                                     foreach ($gejala['gejala'] as $gj): 
@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="gejala4">Gejala 4</label>
                                     <select class="form-control" name="gejala4" id="gejala4">
-                                    <option value="null">Tidak Ada</option>
+                                    <option value="">Tidak Ada</option>
                                     <?php 
                                     $i=0;
                                     foreach ($gejala['gejala'] as $gj): 
