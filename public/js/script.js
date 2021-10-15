@@ -34,7 +34,7 @@ $(function () {
         $('#nama').val(data.nama);
         $('#tempat_lahir').val(data.tempat_lahir);
         $('#tanggal_lahir').val(data.tanggal_lahir);
-        $('#gender').val(data.gender);
+        $('#genderEdit').val(data.gender);
         $('#emailProfile').val(data.email);
         $('#alamatProfile').val(data.alamat);
       },
