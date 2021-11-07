@@ -99,7 +99,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="gender">Jenis Kelamin</label>
-                                <select class="form-control" name="gender" id="gender">
+                                <select class="form-control" name="gender" id="genderEdit">
                                     <option value="Pria">Pria</option>
                                     <option value="Wanita">Wanita</option>
                                 </select>
