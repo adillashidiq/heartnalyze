@@ -24,6 +24,7 @@
                             <th>Indikasi Penyakit</th>
                             <th>Waktu Pemeriksaan</th>
                             <th>Keterangan Penyakit</th>
+                            <th>Resep Dokter</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +42,19 @@
                                         Lihat
                                         </button>
                                     </td>
+                                    <td>
+                                        <?php if ($hs['resep_dokter'] == null): ?>
+                                            <button type="button" class="btn btn-sm btn-secondary">
+                                                Menunggu Konfirmasi
+                                            </button>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ($hs['resep_dokter'] !== null): ?>
+                                            <button type="button" class="btn btn-primary tampilModalResepDokterUser" data-toggle="modal" data-target="#resepDokterUserModal" data-id="<?= $hs['id']; ?>">
+                                                Lihat
+                                            </button>
+                                        <?php endif; ?>                                        
+                                    </td>
                                 <?php endif; ?>
                             <?php endif; ?>
                         </tr>
@@ -55,3 +69,33 @@
 <!-- /.container-fluid -->
 
 <!-- Button trigger modal -->
+
+<!-- Modal menampilkan resep dokter-->
+<div class="modal fade" id="resepDokterUserModal" tabindex="-1" role="dialog" aria-labelledby="resepDokterUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="resepDokterUserModalLabel">Resep Dokter</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+        <div class="card">
+            <h2 class="card-header">
+                <input type="text" readonly class="penyakit form-control-plaintext font-weight-bold">
+            </h2>
+            <div class="card-body">
+                <div class="form-group">
+                    <textarea class="form-control resep_dokter_user" name="resep_dokter" rows="8"></textarea>
+                </div>
+            </div>
+        </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+        </div>
+        </div>
+    </div>
+</div>

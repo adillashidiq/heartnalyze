@@ -74,12 +74,12 @@ class Admin extends BaseController
         $auth = $this->authService();
         $dataUser = $this->auth->user();
         $dataHistory = $this->historyModel();
+        $resep_request = $this->historyModel->where('resep_dokter',null)->findAll();
         $data = [
             'title' => 'Data Pemeriksaan',
             'history' => $dataHistory,
-            'user' => $dataUser->username
+            'user' => $dataUser->username,
         ];
-
         echo view('templates/header', $data);
         echo view('templates/sidebar-admin');
         echo view('templates/topbar');
@@ -100,6 +100,18 @@ class Admin extends BaseController
         echo view('templates/topbar');
         echo view('admin/tambah-gejala');
         echo view('templates/footer');
+    }
+
+    public function tambahResep()
+    {
+        $id = $this->request->getVar('idPemeriksaan');
+        $resepDokter = $this->request->getVar('resep_dokter');
+
+        $tambahResep = $this->historyModel->update($id,[
+            'resep_dokter' => $resepDokter
+        ]);
+        session()->setFlashdata('msg', 'Resep dokter berhasil dikonfirmasi');
+        return redirect('admin/history');
     }
     public function saveTambahGejala()
     {
@@ -123,6 +135,16 @@ class Admin extends BaseController
                         }
                     }
                 }
+            }
+        }
+    }
+    public function getDataPemeriksaan()
+    {
+        $id =  $_POST['id'];
+        $dataHistory = $this->historyModel();
+        foreach ($dataHistory['history'] as $hs) {
+            if ($hs['id'] == $id) {
+                echo json_encode($hs);
             }
         }
     }

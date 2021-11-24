@@ -10,13 +10,57 @@ $(function () {
   $('.tampilModalKeterangan').on('click', function () {
     const id = $(this).data('id');
     $.ajax({
-      url: 'http://localhost:8080/user/history/getDataKeterangan',
+      url: 'http://localhost:8080/user/history/getDataPenyakit',
       data: { id: id },
       method: 'post',
       dataType: 'json',
       success: function (data) {
         $('#penyakit').val(data.penyakit);
         $('#keterangan').val(data.keterangan);
+      },
+    });
+  });
+});
+$(function () {
+  $('.tampilModalResepDokterUser').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/user/history/getDataPenyakit',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        $('.penyakit').val(data.penyakit);
+        $('.resep_dokter_user').val(data.resep_dokter);
+      },
+    });
+  });
+});
+$(function () {
+  $('.tampilModalKonfirmasiResep').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/history/getDataPemeriksaan',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        $('#idPemeriksaan').val(data.id);
+      },
+    });
+  });
+});
+$(function () {
+  $('.tampilModalResepDokter').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/history/getDataPemeriksaan',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        $('.resep_dokter').val(data.resep_dokter);
       },
     });
   });

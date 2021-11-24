@@ -85,10 +85,17 @@ class User extends BaseController
         $dataUser = $this->auth->user();
         $dataGejala = $this->gejala();
         $dataProfile = $this->getDataProfile('username', $dataUser->username);
+        $gejala1 = $this->gejalaModel->distinct()->findColumn('gejala1');
+        $gejala2 = $this->gejalaModel->distinct()->findColumn('gejala2');
+        $gejala3 = $this->gejalaModel->distinct()->findColumn('gejala3');
+        $gejala4 = $this->gejalaModel->distinct()->findColumn('gejala4');
 
         $data=[
             'title'=>'Cek Kesehatan',
-            'gejala' => $dataGejala,
+            'gejala1'=> $gejala1,
+            'gejala2'=> $gejala2,
+            'gejala3'=> $gejala3,
+            'gejala4'=> $gejala4,
             'user' => $dataUser->username
         ];
         if (!empty($dataProfile)) {
@@ -108,12 +115,14 @@ class User extends BaseController
     {
         $auth = $this->authService();
         $dataUser = $this->auth->user();
-        $dataHistory = $this->historyModel();
+        $dataHistory = $this->historyModel->where('nama',$dataUser->username)->findAll();
+        
         $data=[
             'title'=>'Riwayat Pemeriksaan',
-            'history' => $dataHistory['history'],
-            'user' => $dataUser->username
+            'history' => $dataHistory,
+            'user' => $dataUser->username,
         ];
+
         echo view('templates/header', $data);
         echo view('templates/sidebar-user');
         echo view('templates/topbar');
@@ -205,7 +214,7 @@ class User extends BaseController
 
     }
 
-    public function getDataKeterangan(){
+    public function getDataPenyakit(){
         $id =  $_POST['id'];
         $dataHistory = $this->historyModel();
         foreach ($dataHistory['history'] as $hs) {
