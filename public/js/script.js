@@ -21,6 +21,7 @@ $(function () {
     });
   });
 });
+
 $(function () {
   $('.tampilModalResepDokterUser').on('click', function () {
     const id = $(this).data('id');
@@ -101,6 +102,59 @@ $(function () {
         $('#genderLihat').val(data.gender);
         $('#emailLihat').val(data.email);
         $('#alamatLihat').val(data.alamat);
+      },
+    });
+  });
+});
+
+$(function () {
+  $('.modal-tampilKeterangan').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/data-gejala/getKeteranganPenyakit',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        $('#lihatNamaPenyakit').val(data.penyakit);
+        $('#lihatKeterangan').val(data.keterangan);
+      },
+    });
+  });
+});
+$(function () {
+  $('.modal-editDataGejala').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/data-gejala/editDataGejala',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        $('#editIdPenyakit').val(data.id);
+        $('#editNamaPenyakit').val(data.penyakit);
+        $('#editGejala1').val(data.gejala1);
+        $('#editGejala2').val(data.gejala2);
+        $('#editGejala3').val(data.gejala3);
+        $('#editGejala4').val(data.gejala4);
+        $('#editKeterangan').val(data.keterangan);
+      },
+    });
+  });
+});
+$(function () {
+  $('.modal-editLevelPengguna').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/data-user/editLevelPengguna',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        $('#editIdPengguna').val(data.user_id);
+        $('#editLevel').val(data.group_id);
       },
     });
   });

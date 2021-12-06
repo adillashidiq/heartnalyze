@@ -45,7 +45,7 @@
                                 </td>
                                 <td>
                                     <?php if ($hs['resep_dokter'] == null): ?>
-                                        <button type="button" class="btn btn-primary tampilModalKonfirmasiResep" data-toggle="modal" data-target="#konfirmasiResepModal" data-id="<?= $hs['id']; ?>">
+                                        <button type="button" class="btn btn-secondary tampilModalKonfirmasiResep" data-toggle="modal" data-target="#konfirmasiResepModal" data-id="<?= $hs['id']; ?>">
                                             Konfirmasi Resep
                                         </button>
                                     <?php endif; ?>

@@ -45,6 +45,13 @@ $routes->post('admin/tambah-resep', 'Admin::tambahResep', ['filter' => 'role:adm
 $routes->post('admin/tambah-data-gejala/save', 'Admin::saveTambahGejala', ['filter' => 'role:admin']);
 $routes->post('admin/history/getDataUser', 'Admin::getDataUser', ['filter' => 'role:admin']);
 $routes->post('admin/history/getDataPemeriksaan', 'Admin::getDataPemeriksaan', ['filter' => 'role:admin']);
+$routes->post('admin/data-gejala/getKeteranganPenyakit', 'Admin::getDataPenyakit', ['filter' => 'role:admin']);
+$routes->post('admin/data-gejala/editDataGejala', 'Admin::getDataPenyakit', ['filter' => 'role:admin']);
+$routes->post('/admin/data-gejala/delete', 'Admin::delDatagejala', ['filter' => 'role:admin']);
+$routes->post('/admin/data-gejala/edit', 'Admin::editDatagejala', ['filter' => 'role:admin']);
+$routes->post('admin/data-user/editLevelPengguna', 'Admin::getDataPengguna', ['filter' => 'role:admin']);
+$routes->post('/admin/data-user/delete', 'Admin::delDataPengguna', ['filter' => 'role:admin']);
+$routes->post('/admin/data-user/edit', 'Admin::editDataPengguna', ['filter' => 'role:admin']);
 
 $routes->get('user', 'User::index', ['filter' => 'role:member']);
 $routes->get('user/profile', 'User::profile', ['filter' => 'role:member']);
