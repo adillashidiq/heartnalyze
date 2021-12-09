@@ -19,10 +19,10 @@
                                     <option value="">Tidak Ada</option>
                                     <?php 
                                     $i=0;
-                                    foreach ($gejala['gejala'] as $gj): 
+                                    foreach ($gejala1 as $gj1): 
                                         $i++;
                                     ?>
-                                        <option value="<?= $gj['gejala1']; ?>"><?= $gj['gejala1']; ?></option>
+                                        <option value="<?= $gj1; ?>"><?= $gj1; ?></option>
                                     <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -32,10 +32,10 @@
                                     <option value="">Tidak Ada</option>
                                     <?php 
                                     $i=0;
-                                    foreach ($gejala['gejala'] as $gj): 
+                                    foreach ($gejala2 as $gj2): 
                                         $i++;
                                     ?>
-                                        <option value="<?= $gj['gejala2']; ?>"><?= $gj['gejala2']; ?></option>
+                                        <option value="<?= $gj2; ?>"><?= $gj2; ?></option>
                                     <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -45,10 +45,10 @@
                                     <option value="">Tidak Ada</option>
                                     <?php 
                                     $i=0;
-                                    foreach ($gejala['gejala'] as $gj): 
+                                    foreach ($gejala3 as $gj3): 
                                         $i++;
                                     ?>
-                                        <option value="<?= $gj['gejala3']; ?>"><?= $gj['gejala3']; ?></option>
+                                        <option value="<?= $gj3; ?>"><?= $gj3; ?></option>
                                     <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -58,10 +58,10 @@
                                     <option value="">Tidak Ada</option>
                                     <?php 
                                     $i=0;
-                                    foreach ($gejala['gejala'] as $gj): 
+                                    foreach ($gejala4 as $gj4): 
                                         $i++;
                                     ?>
-                                        <option value="<?= $gj['gejala4']; ?>"><?= $gj['gejala4']; ?></option>
+                                        <option value="<?= $gj4; ?>"><?= $gj4; ?></option>
                                     <?php endforeach; ?>
                                     </select>
                                 </div>

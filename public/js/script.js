@@ -10,13 +10,58 @@ $(function () {
   $('.tampilModalKeterangan').on('click', function () {
     const id = $(this).data('id');
     $.ajax({
-      url: 'http://localhost:8080/user/history/getDataKeterangan',
+      url: 'http://localhost:8080/user/history/getDataPenyakit',
       data: { id: id },
       method: 'post',
       dataType: 'json',
       success: function (data) {
         $('#penyakit').val(data.penyakit);
         $('#keterangan').val(data.keterangan);
+      },
+    });
+  });
+});
+
+$(function () {
+  $('.tampilModalResepDokterUser').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/user/history/getDataPenyakit',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        $('.penyakit').val(data.penyakit);
+        $('.resep_dokter_user').val(data.resep_dokter);
+      },
+    });
+  });
+});
+$(function () {
+  $('.tampilModalKonfirmasiResep').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/history/getDataPemeriksaan',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        $('#idPemeriksaan').val(data.id);
+      },
+    });
+  });
+});
+$(function () {
+  $('.tampilModalResepDokter').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/history/getDataPemeriksaan',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        $('.resep_dokter').val(data.resep_dokter);
       },
     });
   });
@@ -57,6 +102,59 @@ $(function () {
         $('#genderLihat').val(data.gender);
         $('#emailLihat').val(data.email);
         $('#alamatLihat').val(data.alamat);
+      },
+    });
+  });
+});
+
+$(function () {
+  $('.modal-tampilKeterangan').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/data-gejala/getKeteranganPenyakit',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        $('#lihatNamaPenyakit').val(data.penyakit);
+        $('#lihatKeterangan').val(data.keterangan);
+      },
+    });
+  });
+});
+$(function () {
+  $('.modal-editDataGejala').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/data-gejala/editDataGejala',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        $('#editIdPenyakit').val(data.id);
+        $('#editNamaPenyakit').val(data.penyakit);
+        $('#editGejala1').val(data.gejala1);
+        $('#editGejala2').val(data.gejala2);
+        $('#editGejala3').val(data.gejala3);
+        $('#editGejala4').val(data.gejala4);
+        $('#editKeterangan').val(data.keterangan);
+      },
+    });
+  });
+});
+$(function () {
+  $('.modal-editLevelPengguna').on('click', function () {
+    const id = $(this).data('id');
+    $.ajax({
+      url: 'http://localhost:8080/admin/data-user/editLevelPengguna',
+      data: { id: id },
+      method: 'post',
+      dataType: 'json',
+      success: function (data) {
+        console.log(data);
+        $('#editIdPengguna').val(data.user_id);
+        $('#editLevel').val(data.group_id);
       },
     });
   });

@@ -12,7 +12,7 @@ class UserModel extends Model
     protected $primaryKey = 'id';
 
     protected $returnType = User::class;
-    protected $useSoftDeletes = true;
+    protected $useSoftDeletes = false;
 
     protected $allowedFields = [
         'email', 'username', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
@@ -120,5 +120,11 @@ class UserModel extends Model
         }
 
         return $data;
+    }
+    public function getLevelId()
+    {
+        return $this->db->table('users')
+        ->join('auth_groups_users', 'auth_groups_users.user_id=users.id')
+        ->get()->getResultArray();
     }
 }

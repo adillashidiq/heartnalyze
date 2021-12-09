@@ -14,7 +14,7 @@ class History extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['nama','gejala','penyakit','keterangan'];
+    protected $allowedFields        = ['nama','gejala','penyakit','keterangan', 'resep_dokter'];
 
     // Dates
     protected $useTimestamps        = false;

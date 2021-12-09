@@ -41,15 +41,24 @@ $routes->get('admin/data-user', 'Admin::dataUser', ['filter' => 'role:admin']);
 $routes->get('admin/data-gejala', 'Admin::dataGejala', ['filter' => 'role:admin']);
 $routes->get('admin/history', 'Admin::history', ['filter' => 'role:admin']);
 $routes->get('admin/tambah-data-gejala', 'Admin::tambahGejala', ['filter' => 'role:admin']);
+$routes->post('admin/tambah-resep', 'Admin::tambahResep', ['filter' => 'role:admin']);
 $routes->post('admin/tambah-data-gejala/save', 'Admin::saveTambahGejala', ['filter' => 'role:admin']);
 $routes->post('admin/history/getDataUser', 'Admin::getDataUser', ['filter' => 'role:admin']);
+$routes->post('admin/history/getDataPemeriksaan', 'Admin::getDataPemeriksaan', ['filter' => 'role:admin']);
+$routes->post('admin/data-gejala/getKeteranganPenyakit', 'Admin::getDataPenyakit', ['filter' => 'role:admin']);
+$routes->post('admin/data-gejala/editDataGejala', 'Admin::getDataPenyakit', ['filter' => 'role:admin']);
+$routes->post('/admin/data-gejala/delete', 'Admin::delDatagejala', ['filter' => 'role:admin']);
+$routes->post('/admin/data-gejala/edit', 'Admin::editDatagejala', ['filter' => 'role:admin']);
+$routes->post('admin/data-user/editLevelPengguna', 'Admin::getDataPengguna', ['filter' => 'role:admin']);
+$routes->post('/admin/data-user/delete', 'Admin::delDataPengguna', ['filter' => 'role:admin']);
+$routes->post('/admin/data-user/edit', 'Admin::editDataPengguna', ['filter' => 'role:admin']);
 
 $routes->get('user', 'User::index', ['filter' => 'role:member']);
 $routes->get('user/profile', 'User::profile', ['filter' => 'role:member']);
 $routes->get('user/survey', 'User::survey', ['filter' => 'role:member']);
 $routes->get('user/history', 'User::history', ['filter' => 'role:member']);
 
-$routes->post('user/history/getDataKeterangan', 'User::getDataKeterangan', ['filter' => 'role:member']);
+$routes->post('user/history/getDataPenyakit', 'User::getDataPenyakit', ['filter' => 'role:member']);
 $routes->post('user/profile/getDataUser', 'User::getDataUser', ['filter' => 'role:member']);
 $routes->post('user/survey/save', 'User::save');
 $routes->post('user/profile/edit', 'User::edit');
